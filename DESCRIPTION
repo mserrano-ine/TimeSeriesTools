@@ -1,0 +1,14 @@
+Package: TimeSeriesTools
+Type: Package
+Title: Helping Functions for Working with Time Series
+Version: 0.1.0
+Author: Miguel Serrano
+Maintainer: Miguel Serrano <miguel.serrano.martin@inenet>
+Description: Helping functions for working with time series, such as 
+    a `as.data.frame()` function that adds a date column, and a function
+    to compute the growth rate series at different lags.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Imports: methods, stats
+RoxygenNote: 7.3.1
