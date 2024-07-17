@@ -11,9 +11,6 @@ concat(...)
 }
 \value{
 The joined time series.
-x <- sample(98:102, 8, TRUE) |> ts(start = 2010, frequency = 4)
-y <- sample(98:102, 4, TRUE) |> ts(start = 2012, frequency = 4)
-concat(x,y)
 }
 \description{
 Function that concatenates multiple time series.
@@ -23,4 +20,9 @@ It works in the same way \code{c()} does for vectors, and \code{rbind()} for
 matrices. The function accepts both univariate and multivariate time serie.
 They should all be the same type and, in the case of multivariate, have the
 same columns.
+}
+\examples{
+x <- sample(98:102, 8, TRUE) |> ts(start = 2010, frequency = 4)
+y <- sample(98:102, 4, TRUE) |> ts(start = 2012, frequency = 4)
+concat(x,y)
 }

@@ -8,6 +8,7 @@
 #' They should all be the same type and, in the case of multivariate, have the
 #' same columns.
 #' @returns The joined time series.
+#' @examples
 #' x <- sample(98:102, 8, TRUE) |> ts(start = 2010, frequency = 4)
 #' y <- sample(98:102, 4, TRUE) |> ts(start = 2012, frequency = 4)
 #' concat(x,y)
@@ -41,6 +42,9 @@ concat <- function(...) {
 #' set.seed(23)
 #' x <- sample(98:102, 10, TRUE) |> ts(start = 2010, frequency = 4)
 #' as.data.frame(x)
+#' set.seed(24)
+#' x <- sample(98:102, 16, TRUE) |> ts(start = c(2010,3), frequency = 12)
+#' as.data.frame(x)
 #' @export
 as.data.frame.ts <- function(x) {
   if (!(frequency(x) %in% c(1,4,12))) {
@@ -55,7 +59,7 @@ as.data.frame.ts <- function(x) {
     start <- paste0("01/01/",start(x)[1]) |>
       as.Date("%d/%m/%Y")
   } else {
-    start <- paste0("01/", (time(x)[1] - floor(time(x)[1]))*12 + 1, "/",start(x)[1]) |>
+    start <- paste0("01/", round((time(x)[1] - floor(time(x)[1]))*12 + 1,0), "/",start(x)[1]) |>
       as.Date("%d/%m/%Y")
   }
   dates <- seq.Date(from = start, by = freq_string, along.with = as.matrix(x)[,1])

@@ -26,4 +26,7 @@ quarter, e.g. 2015 Q2 turns into 01/04/2015.
 set.seed(23)
 x <- sample(98:102, 10, TRUE) |> ts(start = 2010, frequency = 4)
 as.data.frame(x)
+set.seed(24)
+x <- sample(98:102, 16, TRUE) |> ts(start = c(2010,3), frequency = 12)
+as.data.frame(x)
 }
