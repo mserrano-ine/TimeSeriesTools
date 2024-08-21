@@ -1,7 +1,7 @@
 Package: TimeSeriesTools
 Type: Package
 Title: Helping Functions for Working with Time Series
-Version: 0.2.0
+Version: 0.2.1
 Author: Miguel Serrano
 Maintainer: Miguel Serrano <miguel.serrano.martin@inenet>
 Description: Helping functions for working with time series, such as 

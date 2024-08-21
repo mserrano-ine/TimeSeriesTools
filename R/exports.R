@@ -46,7 +46,7 @@ concat <- function(...) {
 #' x <- sample(98:102, 16, TRUE) |> ts(start = c(2010,3), frequency = 12)
 #' as.data.frame(x)
 #' @export
-as.data.frame.ts <- function(x) {
+as.data.frame.ts <- function(x, ...) {
   if (!(frequency(x) %in% c(1,4,12))) {
     stop("Frequency must be one of 1, 4, 12.")
   }
@@ -86,3 +86,58 @@ compute_gr <- function(x, s) {
   gr <- (x / lag(x, -s) - 1) *100
   return(gr)
 }
+
+#' Apply method to multivariate
+#'
+#' This function applies a function for univariate series ("ts") to a multivariate
+#' ("mts").
+#' @param x A multivariate time series of class "mts".
+#' @param f A function that takes an univariate series as input.
+#' @param ... Arguments for \code{f}.
+apply_multivariate <- function(x, f, ...){
+  n <- ncol(x)
+  y <- lapply(1:n, \(i) {
+    z <- f(x[,i], ...)
+    w <- ts(z, start = start(z), frequency = frequency(z))
+    return(w)
+  })
+  result <- do.call(cbind, y)
+  colnames(result) <- colnames(x)
+  return(result)
+}
+
+#' #' Correlation for time series
+#' #'
+#' #' Computes the Pearson correlation between two univariate time series in the
+#' #' time interval they coincide.
+#' #' @param x A time series "ts" object.
+#' #' @param y A time series "ts" object.
+#' cor.ts <- function(x,y) {
+#'   u <- x
+#'   v <- y
+#'   w <- u*v
+#'   u <- window(u, start = start(w), end = end(w)) |> scale()
+#'   v <- window(v, start = start(w), end = end(w)) |> scale()
+#'   w <- u*v
+#'   return(sum(w)/(length(w)-1))
+#' }
+#'
+#' #' Scaling and Centering of time series
+#' #'
+#' #'
+#' scale.ts <- function(x, center = TRUE, scale = TRUE) {
+#'   if (methods::is(x, "mts")) {
+#'     y <- apply_multivariate(x, scale.ts_uni, center, scale)
+#'   } else {
+#'     y <- scale.ts_uni(x, center, scale)
+#'   }
+#'   return(y)
+#' }
+#'
+#' scale.ts_uni <- function(x, center = TRUE, scale = TRUE) {
+#'   u <- x |>
+#'     scale.default(center = center, scale = scale) |>
+#'     as.vector() |>
+#'     ts(start = start(x), frequency = frequency(x))
+#'   return(u)
+#' }
