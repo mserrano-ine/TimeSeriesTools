@@ -1,5 +1,5 @@
 Package: TimeSeriesTools
-Title: Helping Functions For Time Series
+Title: Helping Functions for Time Series
 Version: 1.0.0
 Authors@R: 
     person("Miguel", "Serrano", , "miguel.serrano.martin@ine.es", role = c("aut", "cre"))
